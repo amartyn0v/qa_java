@@ -1,15 +1,17 @@
 package com.example;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@RunWith(JUnitParamsRunner.class)
 public class TestLionMethods {
-    @Mock
-    Feline feline;
+
+    Feline feline = Mockito.mock(Feline.class);
 
     @Test
     public void getKittensCallsFelineGetKittens() {
@@ -26,14 +28,15 @@ public class TestLionMethods {
     }
 
     @Test
-    public void doesHaveManeReturnsTrueForMale(){
-        Lion lion = new Lion("Самец", feline);
-        Assert.assertEquals(lion.doesHaveMane(),true);
+    @Parameters({"Самец,true", "Самка,false"})
+    public void doesHaveManeReturnsTrueForMaleFalseForFemale(String sex, boolean expected) {
+        Lion lion = new Lion(sex, feline);
+        Assert.assertEquals(expected, lion.doesHaveMane());
     }
 
     @Test
-    public void doesHaveManeReturnsFalseForFemale(){
+    public void doesHaveManeReturnsFalseForFemale() {
         Lion lion = new Lion("Самка", feline);
-        Assert.assertEquals(lion.doesHaveMane(),false);
+        Assert.assertFalse(lion.doesHaveMane());
     }
 }

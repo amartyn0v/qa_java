@@ -1,7 +1,9 @@
 package com.example;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
+
 import java.util.List;
 
 public class TestLionAlexMethods {
@@ -11,7 +13,7 @@ public class TestLionAlexMethods {
     @Test
     public void constructorMakesObjectWithMaleSexByDefault() {
         LionAlex alex = new LionAlex(feline);
-        Assert.assertEquals(alex.hasMane, true);
+        Assert.assertTrue(alex.hasMane);
     }
 
     @Test
@@ -29,7 +31,7 @@ public class TestLionAlexMethods {
     }
 
     @Test
-    public void getKittensReturns0ByDefault(){
+    public void getKittensReturns0ByDefault() {
         LionAlex alex = new LionAlex(feline);
         Assert.assertEquals(0, alex.getKittens());
     }

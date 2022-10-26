@@ -1,30 +1,26 @@
 package com.example;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.Mockito;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@RunWith(JUnitParamsRunner.class)
 public class TestLionConstructor {
-
-    @Mock
-    Feline feline;
+    Feline feline = Mockito.mock(Feline.class);
 
     @Test(expected = IllegalArgumentException.class)
-    public void constructorThrowsExceptionOnUnsupportedSex(){
+    public void constructorThrowsExceptionOnUnsupportedSex() {
         Lion lion = new Lion("TEST", feline);
     }
 
     @Test
-    public void constructorMakesObjectWithMaleSex(){
-        Lion lion = new Lion("Самец", feline);
-        Assert.assertEquals(lion.hasMane,true);
-    }
-
-    @Test
-    public void constructorMakesObjectWithFemaleSex(){
-        Lion lion = new Lion("Самка", feline);
-        Assert.assertEquals(lion.hasMane,false);
+    @Parameters({"Самец,true", "Самка,false"})
+    public void constructorSetHasManeTrueForMaleFalseForFemale(String sex, boolean expected) {
+        Lion lion = new Lion(sex, feline);
+        Assert.assertEquals(expected, lion.hasMane);
     }
 }
